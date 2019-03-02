@@ -1,0 +1,1 @@
+declare function DeepPrintTable(table: table) : void;

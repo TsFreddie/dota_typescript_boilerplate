@@ -1,0 +1,45 @@
+-
+    function include_style(filename, isDota = null) {
+        return "\n<include src=\""+style(filename, isDota)+"\"/>";
+    }
+
+    function include_script(filename, isDota = null) {
+        return "\n<include src=\""+script(filename, isDota)+"\"/>";
+    }
+
+    function style(filename, isDota = null) {
+        if (!filename.endsWith(".css")) {
+            filename += ".css";
+        }
+        if (isDota) {
+            return "s2r://panorama/styles/" + filename;
+        }
+        return "file://{resources}/styles/custom_game/" + filename;
+    }
+
+    function layout(filename, isDota = null) {
+        if (!filename.endsWith(".xml")) {
+            filename += ".xml";
+        }
+        if (isDota) {
+            return "s2r://panorama/layout/" + filename;
+        }
+        return "file://{resources}/layout/custom_game/" + filename;
+    }
+
+    function script(filename, isDota = null) {
+        if (!filename.endsWith(".js")) {
+            filename += ".js";
+        }
+        if (isDota) {
+            return "s2r://panorama/scripts/" + filename;
+        }
+        return "file://{resources}/scripts/custom_game/" + filename;
+    }
+
+    function img(filename, isDota = null) {
+        if (isDota) {
+            return "s2r://panorama/images/" + filename;
+        }
+        return "file://{resources}/images/custom_game/" + filename;
+    }

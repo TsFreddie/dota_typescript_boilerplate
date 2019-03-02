@@ -1,0 +1,20 @@
+{
+  "name": "put_your_package_name_here",
+  "version": "1.0.0",
+  "description": "A dota 2 addon",
+  "devDependencies": {
+    "dotenv": "^6.2.0",
+    "grunt": "^1.0.3",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-pug": "^2.0.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-newer": "^1.3.0",
+    "grunt-sass": "3.0.2",
+    "grunt-ts": "^6.0.0-beta.22",
+    "node-sass": "4.11.0",
+    "typescript": "^3.3.3",
+    "typescript-to-lua": "^0.14.1"
+  }
+}

@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "noImplicitAny" : true,
+        "noImplicitThis" : true,
+        "alwaysStrict" : true,
+        "strictNullChecks" : true,
+        "sourceMap": false,
+        "module": "none",
+        "target": "es5"
+    },
+    "include": [
+        "./**/*",
+        "../../shared/**/*"
+    ]
+}

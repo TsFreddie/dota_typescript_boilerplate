@@ -1,0 +1,9 @@
+include _dota
+root
+    styles
+        != include_style("hud")
+    scripts
+        != include_script("hud")
+    Panel.CustomButtonPanel
+        Button.CustomButton(onactivate="SendMessage()")
+            Label(text="Click" hittest="false")

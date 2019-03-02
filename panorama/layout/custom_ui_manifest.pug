@@ -1,0 +1,12 @@
+include _dota
+root
+    scripts
+        != include_script("event_manager")
+        != include_script("global")
+    Panel
+        // Create custom UI elements using the following
+        // CustomUIElement(type="GameSetup", layoutfile=layout("GameSetup"))
+        // CustomUIElement(type="Hud", layoutfile=layout("Hud"))
+        // CustomUIElement(type="HudTopBar", layoutfile=layout("HudTopBar"))
+
+        CustomUIElement(type="Hud", layoutfile=layout("hud"))

@@ -1,0 +1,13 @@
+# Grunt stuff
+.tscache
+.grunt_cache
+.env
+
+# IDE stuff
+.vscode
+
+# Node stuff
+node_modules
+
+# Windows stuff
+thumbs.db

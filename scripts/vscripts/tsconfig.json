@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "noImplicitAny" : true,
+        "noImplicitThis" : true,
+        "alwaysStrict" : true,
+        "strictNullChecks" : true,
+        "target": "es6",
+        "rootDir": ".",
+    },
+    "include": [
+        "./**/*",
+        "../../shared/**/*"
+    ],
+    "luaTarget": "JIT",
+    "luaLibImport": "inline"
+}
