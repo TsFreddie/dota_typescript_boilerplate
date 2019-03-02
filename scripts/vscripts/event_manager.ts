@@ -1,3 +1,7 @@
+type Received<T> = T & {
+    PlayerID: number;
+};
+
 class EventManager {
     public static SendToAll<E extends keyof IServerEvents>(
         eventName: E,

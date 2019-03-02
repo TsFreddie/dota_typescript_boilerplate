@@ -115,6 +115,27 @@ module.exports = function(grunt) {
                         ],
                         dest: dotaPath + '/content/dota_addons/' + addonName + "/panorama/images/custom_game/",
                     },
+
+                    // Panorama layouts
+                    {
+                        expand: true,
+                        cwd: './panorama/layout',
+                        src: [
+                            '**/*.xml',
+                        ],
+                        dest: dotaPath + '/content/dota_addons/' + addonName + "/panorama/layout/custom_game/",
+                    },
+
+                    // Panorama styles
+                    {
+                        expand: true,
+                        cwd: './panorama/styles',
+                        src: [
+                            '**/*.css',
+                        ],
+                        dest: dotaPath + '/content/dota_addons/' + addonName + "/panorama/styles/custom_game/",
+                    },
+                    
                     // Reverse (for repository management)
                     {
                         expand: true,
@@ -143,9 +164,6 @@ module.exports = function(grunt) {
                 dotaPath + '/game/dota_addons/' + addonName + '/resource/*', // Only delete content, dota might be using this folder
                 dotaPath + '/game/dota_addons/' + addonName + '/scripts/*',
                 dotaPath + '/game/dota_addons/' + addonName + '/addoninfo.txt',
-                './maps/**',
-                './models/**',
-                './particles/**'
             ]
         },
 
@@ -185,6 +203,8 @@ module.exports = function(grunt) {
                     'scripts/**/*.txt/**/*',
                     'scripts/vscripts/**/*.lua', // Lua libraries
                     'resource/**/*',
+                    'panorama/layout/*.xml',
+                    'panorama/styles/*.css',
                     'panorama/other/**/*', // Panorama does not compile webm files.
                     'panorama/images/**/*',
                     dotaPath + '/content/dota_addons/' + addonName + '/maps/**/*',

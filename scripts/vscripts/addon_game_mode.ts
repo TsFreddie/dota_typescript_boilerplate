@@ -12,6 +12,8 @@ function Precache(context: CScriptPrecacheContext): void {
 
 function Activate(): void {
     EventManager.Subscribe("custom_message", (event) => {
+        const player = PlayerResource.GetPlayer(event.PlayerID as PlayerID);
         print("Client send message: " + event.data.message);
+        EventManager.SendToPlayer(player, "custom_response", {status: "Success"});
     });
 }
