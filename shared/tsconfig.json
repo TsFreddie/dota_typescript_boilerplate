@@ -4,12 +4,16 @@
         "noImplicitThis" : true,
         "alwaysStrict" : true,
         "strictNullChecks" : true,
+        "target": "es5",
+        "rootDir": ".",
         "sourceMap": false,
-        "module": "none",
-        "target": "es5"
     },
     "include": [
         "./**/*",
-        "../../shared/typings/**/*"
-    ]
+    ],
+    "exclude": [
+        "./typings/generated/**/*"
+    ],
+    "luaTarget": "JIT",
+    "luaLibImport": "inline"
 }

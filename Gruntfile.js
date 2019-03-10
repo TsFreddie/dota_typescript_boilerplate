@@ -57,22 +57,53 @@ module.exports = function(grunt) {
                 tsconfig: {
                     tsconfig: 'panorama/scripts/tsconfig.json',
                     passThrough: true,
-                } 
+                }
             },
             vscripts: {
                 options: {
-                    compiler: './node_modules/typescript-to-lua/dist/index.js',
+                    compiler: './node_modules/typescript-to-lua/dist/tstl.js',
                     additionalFlags: '--outDir ' + '"' + dotaPath + '/game/dota_addons/' + addonName + '/scripts/vscripts"',
                     fast: "always"
                 },
                 tsconfig: {
                     tsconfig: 'scripts/vscripts/tsconfig.json',
                     passThrough: true,
-                } 
+                }
+            },
+            shared_dts: {
+                options: {
+                    additionalFlags: '--outDir shared/typings/generated --emitDeclarationOnly --declaration',
+                    fast: "always"
+                },
+                tsconfig: {
+                    tsconfig: 'shared/tsconfig.json',
+                    passThrough: true,
+                }
+            },
+            shared_panorama: {
+                options: {
+                    additionalFlags: '--outDir ' + '"' + dotaPath + '/content/dota_addons/' + addonName + '/panorama/scripts/custom_game"',
+                    fast: "always"
+                },
+                tsconfig: {
+                    tsconfig: 'shared/tsconfig.json',
+                    passThrough: true,
+                }
+            },
+            shared_vscripts: {
+                options: {
+                    compiler: './node_modules/typescript-to-lua/dist/tstl.js',
+                    additionalFlags: '--outDir ' + '"' + dotaPath + '/game/dota_addons/' + addonName + '/scripts/vscripts"',
+                    fast: "never"
+                },
+                tsconfig: {
+                    tsconfig: 'shared/tsconfig.json',
+                    passThrough: true,
+                }
             },
         },
         copy: {
-            all: {
+            compile: {
                 files: [
                     // Game files
                     {
@@ -135,7 +166,17 @@ module.exports = function(grunt) {
                         ],
                         dest: dotaPath + '/content/dota_addons/' + addonName + "/panorama/styles/custom_game/",
                     },
-                    
+
+                    // Other content (e.g. Sounds and SoundEvents)
+                    {
+                        expand: true,
+                        cwd: './content',
+                        src: [
+                            '**/*',
+                        ],
+                        dest: dotaPath + '/content/dota_addons/' + addonName + "/",
+                    },
+
                     // Reverse (for repository management)
                     {
                         expand: true,
@@ -146,6 +187,21 @@ module.exports = function(grunt) {
                             'particles/**/*',
                         ],
                         dest: '.',
+                    }
+                ]
+            },
+            resource: {
+                files: [
+                    // Install maps, models and particles
+                    {
+                        expand: true,
+                        cwd: '.',
+                        src: [
+                            'maps/**/*',
+                            'models/**/*',
+                            'particles/**/*',
+                        ],
+                        dest: dotaPath + '/content/dota_addons/' + addonName,
                     }
                 ]
             }
@@ -185,16 +241,16 @@ module.exports = function(grunt) {
                 tasks: ['newer:pug:panorama'],
             },
             ts_panorama: {
-                files: ['panorama/scripts/**/*.ts'],
+                files: ['panorama/scripts/**/*.ts', '!scripts/vscripts/**/*.d.ts'],
                 tasks: ['ts:panorama'],
             },
             ts_vscripts: {
-                files: ['scripts/vscripts/**/*.ts'],
+                files: ['scripts/vscripts/**/*.ts', '!scripts/vscripts/**/*.d.ts'],
                 tasks: ['ts:vscripts'],
             },
             ts_shared: {
-                files: ['shared/**/*.ts'],
-                tasks: ['ts:panorama', 'ts:vscripts'],
+                files: ['shared/**/*.ts', '!shared/**/*.d.ts'],
+                tasks: ['ts:shared_dts', 'ts:shared_panorama', 'ts:shared_vscripts', 'ts:panorama', 'ts:vscripts'],
             },
             copy: {
                 files: [
@@ -203,6 +259,7 @@ module.exports = function(grunt) {
                     'scripts/**/*.txt/**/*',
                     'scripts/vscripts/**/*.lua', // Lua libraries
                     'resource/**/*',
+                    'content/**/*',
                     'panorama/layout/*.xml',
                     'panorama/styles/*.css',
                     'panorama/other/**/*', // Panorama does not compile webm files.
@@ -211,7 +268,7 @@ module.exports = function(grunt) {
                     dotaPath + '/content/dota_addons/' + addonName + '/models/**/*',
                     dotaPath + '/content/dota_addons/' + addonName + '/particles/**/*',
                 ],
-                tasks: ['newer:copy'],
+                tasks: ['newer:copy:compile'],
             }
         },
     });
@@ -275,14 +332,18 @@ module.exports = function(grunt) {
     const buildTask = [
         'newer:sass:panorama',
         'newer:pug:panorama',
+        'ts:shared_dts',
+        'ts:shared_panorama',
+        'ts:shared_vscripts',
         'ts:panorama',
         'ts:vscripts',
-        'newer:copy:all',
+        'newer:copy:compile',
         'kv-combine',
     ];
 
     grunt.registerTask('default', buildTask);
     grunt.registerTask('rebuild', ['clean:cache'].concat(buildTask));
+    grunt.registerTask('install_resource', ['copy:resource'])
     grunt.registerTask('cache', ['clean:cache']);
 
 };
