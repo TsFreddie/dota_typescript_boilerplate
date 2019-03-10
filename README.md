@@ -13,6 +13,7 @@ A boilerplate for dota 2 addon. Using Pug/Sass/Typescript for Panorama and Types
   * __npc__ - Dota NPC data.
   * __vscripts__ - VM codes. Typescripts
 * __shared__ - Data structures or codes shared between Panorama codes and VM codes.
+* __content__ - [not included] Non-panorama compilables (e.g. Sounds and SoundEvents)
 
 ## Installation
 1. Clone this repository.
@@ -40,11 +41,14 @@ A boilerplate for dota 2 addon. Using Pug/Sass/Typescript for Panorama and Types
 * Clean
   * Run `grunt clean` to uninstall your addon.
 
+## Shared Code
+Since typescript can be compiled to both Panorama and VM, you can write shared code or libraries for your project. Just place your common codes inside shared folder. Shared code will be compiled to both javascript and lua.
+
 ## Event Manager
 This boilerplate included a custom event manager alongwith a example for both Panorama and VM.
 
 This event manager is included for the following reasons:
 * Make it more friendly to share data between Panorama and VM.
-* Make sure arrays are still arrays after being sent.
+* Correct arrays and booleans when receiving data.
 * Provide custom declarations for typescript, so you can easily manage your custom events.
 * See the shared typings for declarations of custom events.
